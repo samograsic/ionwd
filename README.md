@@ -53,6 +53,60 @@ nohup ./ionwd.sh > /dev/null 2>&1 &
 pkill -f ionwd.sh
 ```
 
+### Run as a systemd service:
+
+1. **Create a systemd service file:**
+   ```bash
+   sudo nano /etc/systemd/system/ionwd.service
+   ```
+
+2. **Add the following content (adjust paths and user as needed):**
+   ```ini
+   [Unit]
+   Description=ION DTN Watchdog
+   After=network.target
+   Wants=network.target
+
+   [Service]
+   Type=simple
+   User=samo
+   Group=samo
+   WorkingDirectory=/home/samo/dtn/ionwd
+   ExecStart=/home/samo/dtn/ionwd/ionwd.sh
+   Restart=always
+   RestartSec=10
+   StandardOutput=null
+   StandardError=null
+
+   [Install]
+   WantedBy=multi-user.target
+   ```
+   
+   **Note:** Replace `samo` with your actual username and adjust paths to match your installation.
+
+3. **Enable and start the service:**
+   ```bash
+   sudo systemctl daemon-reload
+   sudo systemctl enable ionwd.service
+   sudo systemctl start ionwd.service
+   ```
+
+4. **Check service status:**
+   ```bash
+   sudo systemctl status ionwd.service
+   ```
+
+5. **View service logs:**
+   ```bash
+   sudo journalctl -u ionwd.service -f
+   ```
+
+6. **Stop/disable the service:**
+   ```bash
+   sudo systemctl stop ionwd.service
+   sudo systemctl disable ionwd.service
+   ```
+
 ## Logging
 
 - **Main log**: `$LOG_DIR/ionwd.log` - Contains timestamped watchdog activities and restart events
