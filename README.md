@@ -31,6 +31,20 @@ WATCH_INTERVAL=15                                 # Seconds between health check
 TIMEOUT=2                                         # Timeout for bpadmin responses
 ```
 
+## Installation
+
+### Download from GitHub:
+```bash
+git clone https://github.com/samograsic/ionwd.git
+cd ionwd
+```
+
+### Or download directly:
+```bash
+wget https://raw.githubusercontent.com/samograsic/ionwd/master/ionwd.sh
+wget https://raw.githubusercontent.com/samograsic/ionwd/master/README.md
+```
+
 ## Usage
 
 ### Make the script executable:
